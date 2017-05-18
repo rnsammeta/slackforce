@@ -52,6 +52,11 @@
             "description": "Slack token for the reqs slash command",
             "value": "",
             "required": false
+        },
+        "SLACK_REQ_TOKEN": {
+            "description": "Slack token for the reqs slash command",
+            "value": "",
+            "required": false
         }
     }
 }

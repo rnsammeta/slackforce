@@ -9,6 +9,7 @@ let express = require('express'),
     _case = require('./modules/case'),
     whoami = require('./modules/whoami'),
     reqs = require('./modules/reqs'),
+    req = require('./modules/req'),
     actions = require('./modules/actions'),
     app = express();
 
@@ -30,6 +31,7 @@ app.post('/account', account.execute);
 app.post('/case', _case.execute);
 app.post('/whoami', whoami.execute);
 app.post('/reqs', reqs.execute);
+app.post('/req', req.execute);
 app.post('/login', auth.loginLink);
 app.post('/logout', auth.logout);
 app.get('/login/:slackUserId', auth.oauthLogin);

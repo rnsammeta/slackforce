@@ -2,18 +2,18 @@
 
 let auth = require("./slack-salesforce-auth"),
     force = require("./force"),
-    REQS_TOKEN = process.env.SLACK_REQS_TOKEN;
+    REQ_TOKEN = process.env.SLACK_REQ_TOKEN;
 
 exports.execute = (req, res) => {
 
-    if (req.body.token != REQS_TOKEN) {
+    if (req.body.token != REQ_TOKEN) {
         res.send("Invalid token");
         return;
     }
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, tobase__Requisition_Number__c, Job_Title_or_Job_Code__c, Hiring_Manager_Name__c, Hiring_Manager_Email__c FROM tobase__Requisition__c WHERE Hiring_Manager_Name__c LIKE '%" + req.body.text + "%' AND tobase__Status__c='Open' order by Job_Title_or_Job_Code__c desc LIMIT 5";
+        q = "SELECT Id, tobase__Requisition_Number__c, Hiring_Manager_Name__c, Hiring_Manager_Email__c, Number_of_Openings__c, New_Headcount_or_Replacement__c,  Job_Title_or_Job_Code__c, Employee_Type__c, Schedule__c, Primary_Location__c, Justification__c FROM tobase__Requisition__c WHERE tobase__Requisition_Number__c LIKE '%" + req.body.text + "%' LIMIT 1";
 
     force.query(oauthObj, q)
         .then(data => {
@@ -40,6 +40,36 @@ exports.execute = (req, res) => {
                     fields.push({
                         title: "Hiring Manager Email",
                         value: req.Hiring_Manager_Email__c,
+                        short: true
+                    });
+                    fields.push({
+                        title: "Number of Openings",
+                        value: req.Number_of_Openings__c,
+                        short: true
+                    });
+                    fields.push({
+                        title: "New Headcount or Replacement",
+                        value: req.New_Headcount_or_Replacement__c,
+                        short: true
+                    });
+                    fields.push({
+                        title: "Employee Type",
+                        value: req.Employee_Type__c,
+                        short: true
+                    });
+                    fields.push({
+                        title: "Schedule",
+                        value: req.Schedule__c,
+                        short: true
+                    });
+                    fields.push({
+                        title: "Primary Location",
+                        value: req.Primary_Location__c,
+                        short: true
+                    });
+                    fields.push({
+                        title: "Justification",
+                        value: req.Justification__c,
                         short: true
                     });
                     fields.push({
