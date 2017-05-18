@@ -13,7 +13,7 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, Name, Job_Title_or_Job_Code__c, Hiring_Manager_Name__c, Hiring_Manager_Email__c FROM tobase__Requisition__c WHERE Hiring_Manager_Email__c LIKE '%" + req.body.text + "%' LIMIT 5";
+        q = "SELECT Id, tobase__Requisition_Number__c, Job_Title_or_Job_Code__c, Hiring_Manager_Name__c, Hiring_Manager_Email__c FROM tobase__Requisition__c WHERE Hiring_Manager_Email__c LIKE '%" + req.body.text + "%' order by Job_Title_or_Job_Code__c desc LIMIT 5";
 
     force.query(oauthObj, q)
         .then(data => {
@@ -24,7 +24,7 @@ exports.execute = (req, res) => {
                     let fields = [];
                     fields.push({
                         title: "Name",
-                        value: req.Name,
+                        value: req.tobase__Requisition_Number__c,
                         short: true
                     });
                     fields.push({
