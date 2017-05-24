@@ -30,17 +30,17 @@ exports.execute = (req, res) => {
                     });
                     fields.push({
                         title: "Job Code/Title",
-                        value: req.job_title_or_job_code__c,
+                        value: req.Job_Title_or_Job_Code__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager",
-                        value: req.hiring_manager__c,
+                        value: req.Hiring_Manager__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager Email",
-                        value: req.hiring_manager_email__c,
+                        value: req.Hiring_Manager_Email__c,
                         short: true
                     });
                     fields.push({

@@ -21,7 +21,6 @@ exports.execute = (req, res) => {
             if (reqs && reqs.length > 0) {
                 let attachments = [];
                 reqs.forEach(function (req) {
-                    console.log('---req---', req);
                     let fields = [];
                     fields.push({
                         title: "Name",
@@ -30,52 +29,52 @@ exports.execute = (req, res) => {
                     });
                     fields.push({
                         title: "Status",
-                        value: req.requisition_status__c,
+                        value: req.Requisition_Status__c,
                         short: true
                     });
                     fields.push({
                         title: "Job Code/Title",
-                        value: req.job_title_or_job_code__c,
+                        value: req.Job_Title_or_Job_Code__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager",
-                        value: req.hiring_manager__c,
+                        value: req.Hiring_Manager__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager Email",
-                        value: req.hiring_manager_email__c,
+                        value: req.Hiring_Manager_Email__c,
                         short: true
                     });
                     fields.push({
                         title: "Number of Openings",
                         value: req.number_of_openings__c,
-                        short: true
+                        short: Number_of_Openings__c
                     });
                     fields.push({
                         title: "New Headcount or Replacement",
-                        value: req.new_headcount_or_replacement__c,
+                        value: req.New_Headcount_or_Replacement__c,
                         short: true
                     });
                     fields.push({
                         title: "Employee Type",
-                        value: req.employee_type__c,
+                        value: req.Employee_Type__c,
                         short: true
                     });
                     fields.push({
                         title: "Schedule",
-                        value: req.schedule__c,
+                        value: req.Schedule__c,
                         short: true
                     });
                     fields.push({
                         title: "Primary Location",
-                        value: req.primary_location__c,
+                        value: req.Primary_Location__c,
                         short: true
                     });
                     fields.push({
                         title: "Justification",
-                        value: req.justification__c,
+                        value: req.Justification__c,
                         short: true
                     });
                     fields.push({
