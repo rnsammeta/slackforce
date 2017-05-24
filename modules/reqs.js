@@ -13,7 +13,8 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, tobase__Requisition_Number__c, Job_Title_or_Job_Code__c, Hiring_Manager_Name__c, Hiring_Manager_Email__c FROM tobase__Requisition__c WHERE Hiring_Manager_Name__c LIKE '%" + req.body.text + "%' AND tobase__Status__c='Open' order by Job_Title_or_Job_Code__c desc LIMIT 5";
+
+        q = "SELECT Id, Name, requisition_status__c, job_title_or_job_code__c, hiring_manager__c, hiring_manager_email__c,  number_of_openings__c, new_headcount_or_replacement__c, employee_type__c, schedule__c, primary_location__c, justification__c FROM Requisition__c WHERE hiring_manager__c LIKE '%" + req.body.text + "%' order by job_title_or_job_code__c desc LIMIT 5";
 
     force.query(oauthObj, q)
         .then(data => {
@@ -24,22 +25,22 @@ exports.execute = (req, res) => {
                     let fields = [];
                     fields.push({
                         title: "Name",
-                        value: req.tobase__Requisition_Number__c,
+                        value: req.Name,
                         short: true
                     });
                     fields.push({
                         title: "Job Code/Title",
-                        value: req.Job_Title_or_Job_Code__c,
+                        value: req.job_title_or_job_code__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager",
-                        value: req.Hiring_Manager_Name__c,
+                        value: req.hiring_manager__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager Email",
-                        value: req.Hiring_Manager_Email__c,
+                        value: req.hiring_manager_email__c,
                         short: true
                     });
                     fields.push({

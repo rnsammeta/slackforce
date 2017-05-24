@@ -13,7 +13,7 @@ exports.execute = (req, res) => {
 
     let slackUserId = req.body.user_id,
         oauthObj = auth.getOAuthObject(slackUserId),
-        q = "SELECT Id, tobase__Requisition_Number__c, Hiring_Manager_Name__c, Hiring_Manager_Email__c, Number_of_Openings__c, New_Headcount_or_Replacement__c,  Job_Title_or_Job_Code__c, Employee_Type__c, Schedule__c, Primary_Location__c, Justification__c FROM tobase__Requisition__c WHERE tobase__Requisition_Number__c LIKE '%" + req.body.text + "%' LIMIT 1";
+        q = "SELECT Id, Name, requisition_status__c, job_title_or_job_code__c, hiring_manager__c, hiring_manager_email__c,  number_of_openings__c, new_headcount_or_replacement__c, employee_type__c, schedule__c, primary_location__c, justification__c FROM Requisition__c WHERE Name LIKE '%" + req.body.text + "%' LIMIT 1";
 
     force.query(oauthObj, q)
         .then(data => {
@@ -21,55 +21,61 @@ exports.execute = (req, res) => {
             if (reqs && reqs.length > 0) {
                 let attachments = [];
                 reqs.forEach(function (req) {
+
                     let fields = [];
                     fields.push({
                         title: "Name",
-                        value: req.tobase__Requisition_Number__c,
+                        value: req.Name,
+                        short: true
+                    });
+                    fields.push({
+                        title: "Status",
+                        value: req.requisition_status__c,
                         short: true
                     });
                     fields.push({
                         title: "Job Code/Title",
-                        value: req.Job_Title_or_Job_Code__c,
+                        value: req.job_title_or_job_code__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager",
-                        value: req.Hiring_Manager_Name__c,
+                        value: req.hiring_manager__c,
                         short: true
                     });
                     fields.push({
                         title: "Hiring Manager Email",
-                        value: req.Hiring_Manager_Email__c,
+                        value: req.hiring_manager_email__c,
                         short: true
                     });
                     fields.push({
                         title: "Number of Openings",
-                        value: req.Number_of_Openings__c,
+                        value: req.number_of_openings__c,
                         short: true
                     });
                     fields.push({
                         title: "New Headcount or Replacement",
-                        value: req.New_Headcount_or_Replacement__c,
+                        value: req.new_headcount_or_replacement__c,
                         short: true
                     });
                     fields.push({
                         title: "Employee Type",
-                        value: req.Employee_Type__c,
+                        value: req.employee_type__c,
                         short: true
                     });
                     fields.push({
                         title: "Schedule",
-                        value: req.Schedule__c,
+                        value: req.schedule__c,
                         short: true
                     });
                     fields.push({
                         title: "Primary Location",
-                        value: req.Primary_Location__c,
+                        value: req.primary_location__c,
                         short: true
                     });
                     fields.push({
                         title: "Justification",
-                        value: req.Justification__c,
+                        value: req.justification__c,
                         short: true
                     });
                     fields.push({
