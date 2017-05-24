@@ -21,7 +21,7 @@ exports.execute = (req, res) => {
             if (reqs && reqs.length > 0) {
                 let attachments = [];
                 reqs.forEach(function (req) {
-
+                    console.log('---req---', req);
                     let fields = [];
                     fields.push({
                         title: "Name",
