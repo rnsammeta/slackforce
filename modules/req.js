@@ -49,8 +49,8 @@ exports.execute = (req, res) => {
                     });
                     fields.push({
                         title: "Number of Openings",
-                        value: req.number_of_openings__c,
-                        short: Number_of_Openings__c
+                        value: req.Number_of_Openings__c,
+                        short: true
                     });
                     fields.push({
                         title: "New Headcount or Replacement",
